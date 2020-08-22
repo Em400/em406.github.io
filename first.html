@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   
+    
+    
+    
+</head>
+
+
+    
+<header>
+    <nav>
+        
+        <ul class="bullet">
+        
+            
+            <li class="item"><a href="login.html">Home</a></li>
+            <li class="item"><a href="first.html">Game</a></li>
+        </ul>
+        </nav>
+</header>
+    
+
+
+<body>
+
+    
+    <div id="grid">
+       
+    </div>
+    
+    <input type="button" value="Reset" placeholder="resetGame" alt=""
+           class="resbut" id="varbut"/>
+
+</body>
+    
+       <script charset ="utf-8" type="text/javascript">
+      
+       
+            
+            const grid = document.querySelector('div');
+            let width = 10;
+
+            let bombAmount = 15;
+           let attribute2= "";
+           let squares=[]; 
+           const square="";
+           let gameOver2 = false;
+
+            function createBoard(){
+              
+                const bombsArray = Array(bombAmount).fill('bomb');
+                const emptyArray = Array(width*width - bombAmount).fill('valid');
+                
+                const shuffledArray = bombsArray.concat(emptyArray);
+                
+                const shuffledArrayBombs = 
+                      shuffledArray.sort( () => Math.random() - 0.5);
+                console.log(bombsArray);
+                console.log(emptyArray);
+                console.log(shuffledArray);
+                for(let i = 0; i< width*width;i++){
+                    
+                    
+                    const square = document.createElement('div');
+                    square.setAttribute('id',1);
+                    square.style.border = "1px solid #000";
+                  
+                    square.classList.add(shuffledArrayBombs[i]);
+                      
+                    //if(square.classList.contains('bomb')){
+                       // square.style.backgroundColor = 'darkorange';
+                    //}
+                    
+                    square.addEventListener('click',function(e){
+                        
+                        click(square,'data');
+                    },true);
+                    
+                    square.addEventListener('contextmenu',function(e){
+                        
+                           e.preventDefault();
+                            addFlag(square);
+                     
+                    },true);
+                    grid.appendChild(square);
+                    squares.push(square);
+                    
+                       revealSquares(square,'data');
+                
+                    
+                }
+                
+            }
+                
+                
+            function revealSquares(square,attr){
+                for(let i =1 ;i <squares.length;i++){
+                    
+                    let total =0;
+                    var c =0;
+                    const isLeftEdge  = (1 % width === 0);
+                    const isRightEdge = (i === width -1);
+                    
+                    if(squares[i].classList.contains('valid')){
+                        
+                        
+                        if( i>0 && !isLeftEdge && squares[i-1].classList.contains('bomb')) total++;
+                        if(i>9 && !isRightEdge && squares[i+1-width].classList.contains('bomb')) total++;
+                        if(i>10 && squares[i-width].classList.contains('bomb')) total++;
+                        if(i>11 && !isLeftEdge  && squares[i-1-width].classList.contains('bomb')) total++;
+                        if(i<98 && !isRightEdge && squares[i-1].classList.contains('bomb')) total++;
+          
+                     
+                            squares[i].setAttribute(attr,total);
+                         
+                    }
+                    
+                   
+                }
+                
+                 square.classList.add('checked');
+                
+                  return c;
+            };
+           
+           
+           createBoard();
+        
+           
+           function addFlag(square){
+               
+          
+            
+                       
+                       square.classList.add('flag');
+                       square.innerHTML='🚩';
+                       flags++;
+           }
+                  
+           function click(square,attr){
+               
+               
+               
+               var currentId  = square.innerHTML;
+               if (square.classList.contains('bomb')){
+                   
+                   //alert("You have pressed a bomb");
+                   gameOver(square);
+                   return;
+                }
+           
+                else{
+                        
+                
+                        
+                     
+                        let total =  square.getAttribute('data');
+                        
+                        if(total!=0){
+                        
+                       
+                        square.classList.add('checked');
+                        square.style.backgroundColor='red';
+                        square.innerHTML=total;
+                        expandSquare(square,'data');
+                        return;
+                    }
+                        
+                      
+                         square.classList.add('checked');
+                    }
+               
+                     expandSquare(square,currentId);
+                     reset(square,currentId);
+                }
+           
+           
+           
+     function expandSquare(square, currentId) {
+    const isLeftEdge = (currentId % width === 0)
+    const isRightEdge = (currentId % width === width -1)
+
+    setTimeout(() => {
+      if (currentId > 0 && !isLeftEdge) {
+        const newId = squares[parseInt(currentId) -1].id
+        //const newId = parseInt(currentId) - 1   ....refactor
+        const newSquare = document.getElementById(newId)
+        click(newSquare)
+      }
+      if (currentId > 9 && !isRightEdge) {
+        const newId = squares[parseInt(currentId) +1 -width].id
+        //const newId = parseInt(currentId) +1 -width   ....refactor
+        const newSquare = document.getElementById(newId)
+        click(newSquare)
+      }
+      if (currentId > 10) {
+        const newId = squares[parseInt(currentId -width)].id
+        //const newId = parseInt(currentId) -width   ....refactor
+        const newSquare = document.getElementById(newId)
+        click(newSquare)
+      }
+      if (currentId > 11 && !isLeftEdge) {
+        const newId = squares[parseInt(currentId) -1 -width].id
+        //const newId = parseInt(currentId) -1 -width   ....refactor
+        const newSquare = document.getElementById(newId)
+        click(newSquare)
+      }
+      if (currentId < 98 && !isRightEdge) {
+        const newId = squares[parseInt(currentId) +1].id
+        //const newId = parseInt(currentId) +1   ....refactor
+        const newSquare = document.getElementById(newId)
+        click(newSquare)
+      }
+      if (currentId < 90 && !isLeftEdge) {
+        const newId = squares[parseInt(currentId) -1 +width].id
+        //const newId = parseInt(currentId) -1 +width   ....refactor
+        const newSquare = document.getElementById(newId)
+        click(newSquare)
+      }
+      if (currentId < 88 && !isRightEdge) {
+        const newId = squares[parseInt(currentId) +1 +width].id
+        //const newId = parseInt(currentId) +1 +width   ....refactor
+        const newSquare = document.getElementById(newId)
+        click(newSquare)
+      }
+      if (currentId < 89) {
+        const newId = squares[parseInt(currentId) +width].id
+        //const newId = parseInt(currentId) +width   ....refactor
+        const newSquare = document.getElementById(newId)
+        click(newSquare)
+      }
+    }, 10)
+  };
+           
+  function reset(square,idnum){
+           
+      
+      
+      
+          
+         if(square.innerHTML ===idnum){
+             
+            square.style.backgroundColor ='lightblue';
+           
+         }
+      
+         reset(square,idnum-1);
+      
+     
+
+  
+      
+  }
+           
+           
+function gameOver(square){
+    
+    
+    console.log('BOOM :Game Over');
+    gameOver2 = true;
+    
+    
+    squares.forEach(square => {
+        
+        if(square.classList.contains('bomb')){
+            
+            square.innerHTML = '💣';
+        }
+    })
+}
+    
+           
+function resetGame(){
+    
+    
+squares.forEach(square => {
+    
+
+    square.style.backgroundColor = 'darkgray';
+    square.innerHTML='';
+    
+    });
+    
+}
+           
+function isGameWon(sqare){
+    
+    
+    squares.foreach(square =>{
+        
+        if(square.classList.contains('checked'))
+          return true;
+        
+        else return false;
+    });
+    
+    return false;
+              
+}
+           
+var d = document.getElementById('varbut');
+           
+d.addEventListener('click',function(e){
+    
+    resetGame();
+},true);
+           
+           
+        
+
+    </script>
+</html>

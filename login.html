@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="stylelogin.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   
+    
+    
+    
+</head>
+
+
+    
+    <header>
+    <nav>
+        
+        <ul class="bullet">
+        
+            
+            <li class="item"><a href="login.html">Home</a></li>
+            <li class="item"><a href="first.html">Game</a></li>
+        </ul>
+        </nav>
+</header>
+    
+    
+    
+    
+    <body>
+        
+        
+        <div class="caption">
+            
+            <h1>Welcome to our game site</h1>
+        </div>
+    
+        <div class="formsector">
+        
+             <label class="register">Register</label>
+            <form name = "formuser" method="post" action="">
+                
+            
+               <div class="mail">
+                <label class="em">Email</label>
+                <input type="email" value="type your mail" p;aceholder="mail" class="box"  id="postbox"/>
+                   
+                   </div> 
+                
+                <div class="password">
+                    
+                    <label class="pass">Password</label>
+                <input type ="password" value=" password"
+                       placeholder="hidden" class="box2" id="passbox"/>
+                    
+         
+                    
+                </div>
+                
+          
+                
+                <div class="password">
+                    
+                          <label class="reppassw">Repeat password</label>
+                <input type = "password" value ="password"
+                       placeholder="hidden" class="box3" id="passwd"/>
+                    
+                </div>
+                <div class="logbut">
+                    
+                    <input type="button" name="button"placeholder="press" value="Register" class="wtf" id='regbutton' 
+                           onclick='register()'/>
+                </div>
+            </form>
+        </div>
+        
+       
+        <script>
+        
+            
+
+function register(username,password){
+    
+        
+        
+        if(window.localStorage){
+            
+            //alert('Login successful');   
+            window.open('login2.html','MyGameWindow');
+        
+
+
+
+    };
+}
+            
+function login(){
+
+    
+               var c =$('#postbox').val();
+            localStorage.setItem('Username',c);
+    
+            var d = $('#passbox').val();
+            localStorage.setItem('Password',d);
+    
+             console.log(localStorage.getItem('Username'));
+            //var newvar = localStorage.getItem('Username');
+
+    if(p === arr[0]  && s === arr[1] ){
+
+      window.open('first.html');
+    }
+    
+    else{
+        
+        console.log('invalid credentials');
+    }
+       }
+        
+            
+          var c =$('#postbox').val();
+          var d = $('#passbox').val();
+          //register(c,d);    
+            
+        </script>
+        
+    </body>
+    
+    
+
+
+    

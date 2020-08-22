@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="stylelogin.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   
+    
+    
+    
+</head>
+
+
+    
+    <header>
+    <nav>
+        
+        <ul class="bullet">
+        
+            
+            <li class="item"><a href="login.html">Home</a></li>
+            <li class="item"><a href="first.html">Game</a></li>
+        </ul>
+        </nav>
+</header>
+    
+    
+    
+    
+    <body>
+        
+        
+        <div class="caption">
+            
+            <h1>Welcome to our game site</h1>
+        </div>
+    
+        <div class="formsector">
+        
+             <label class="register">Register</label>
+            <form name = "formuser" method="post" action="">
+                
+            
+               <div class="mail">
+                <label class="em">Email</label>
+                <input type="email" value="type your mail" p;aceholder="mail" class="box"  id="postbox"/>
+                   
+                   </div> 
+                
+                <div class="password">
+                    
+                    <label class="pass">Password</label>
+                <input type ="password" value=" password"
+                       placeholder="hidden" class="box2" id="passbox"/>
+                    
+         
+                    
+                </div>
+                
+          
+                
+           
+                <div class="logbut">
+                    
+                    <input type="button" name="button"placeholder="press" value="login" class="wtf" id='regbutton'
+                           
+                       />
+                </div>
+            </form>
+        </div>
+        
+       
+        <script>
+        
+ 
+    
+    //console.log(username.length);
+    
+
+    function log(username,password){
+    document.getElementById('regbutton').addEventListener('click',function(){
+      
+                
+        if(window.localStorage){
+        
+                var username = localStorage.getItem('Username');
+                console.log(username);
+                var password = localStorage.getItem('Password');
+                console.log(password);
+                if(username.length>=6 && password.length>=6){
+                  alert('Login successful');   
+                  window.open('first.html','MyGameWindow');
+                    
+                }
+        }
+        
+    });
+    
+    
+                                                          }
+        
+       
+    
+
+
+
+function login(){
+
+    
+    
+    var arr = [];
+
+
+    arr[0] = 'emil';
+    arr[1] = 'theater123';
+
+
+    if(p === arr[0]  && s === arr[1] ){
+
+      window.open('first.html');
+    }
+    
+    else{
+        
+        console.log('invalid credentials');
+    }
+       }
+            
+        //register();
+       // store();
+        log('','')
+        </script>
+        
+    </body>
+    
+    
+
